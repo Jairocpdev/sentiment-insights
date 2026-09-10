@@ -30,8 +30,9 @@ Testado com sucesso com 12, 15 e 30 linhas, em 3 formatos diferentes de CSV.
 - **Lógica de Negócio:** Classificação que prioriza nota sobre palavra para evitar falso positivo (ex: "funciona mas é frágil" + nota 2 = Negativo)
 
 ### 📸 Screenshots
-Adicione aqui seus prints:
-- Gráfico 46.7% Positivo / 40% Negativo
-- Tabela colorida com sentimento legível
+
+![Gráfico](docs/INSIGHT%205.png)
+
+![Avaliações](docs/INSIGHT%204.png)
 
 Feito por **Jairo Andrade**
