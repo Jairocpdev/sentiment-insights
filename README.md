@@ -8,7 +8,7 @@
 
 > Arraste **QUALQUER CSV** e veja a análise em segundos. O app detecta automaticamente a coluna de texto e a nota, sem precisar renomear nada.
 
-**🔗 Demo ao vivo:** (https://sentiment-insight-app.streamlit.app/)
+**🔗 Demo ao vivo:** https://sentiment-insight-app.streamlit.app/
 
 ### 🎯 O que esse projeto faz?
 
