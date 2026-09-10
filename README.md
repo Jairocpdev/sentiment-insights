@@ -8,8 +8,7 @@
 
 > Arraste **QUALQUER CSV** e veja a análise em segundos. O app detecta automaticamente a coluna de texto e a nota, sem precisar renomear nada.
 
-**🔗 Demo ao vivo:** (cole seu link do Streamlit Cloud aqui)
-
+**🔗 Demo ao vivo:** (https://sentiment-insight-app.streamlit.app/)
 
 ### 🎯 O que esse projeto faz?
 
@@ -21,7 +20,6 @@ Dashboard interativo que resolve um problema real de e-commerce e atendimento:
 4.  **Resumo de IA:** Gera insights automáticos: "ALERTA: 40% negativas, foco em logística".
 
 Testado com sucesso com 12, 15 e 30 linhas, em 3 formatos diferentes de CSV.
-
 
 ### 🛠️ Tecnologias
 - **Python + Pandas:** Limpeza e tratamento de CSVs sujos
