@@ -11,10 +11,12 @@ st.title("📊 Sentiment Insights")
 st.caption("Arraste QUALQUER CSV - o app encontra o texto sozinho")
 
 def achar_coluna_texto(df):
-    possiveis = ["texto", "comentario", "comentário", "review", "mensagem", "feedback", "avaliação", "avaliacao", "descricao", "descrição", "opinião", "opiniao", "content", "text"]
+    possiveis = ["texto", "comentario", "comentário", "review", "mensagem", "feedback", "feedback_cliente", "avaliacao", "avaliação", "descricao", "descrição", "opiniao", "opinião", "content", "text", "coment", "avaliacoes"]
+
     for col in df.columns:
         if col.lower().strip() in possiveis:
             return col
+
     for col in df.columns:
         if df[col].dtype == 'object':
             try:
@@ -39,14 +41,9 @@ try:
         except:
             uploaded_file.seek(0)
             df = pd.read_csv(uploaded_file, encoding='latin1')
-    
     if df.empty:
-        st.error("O CSV está vazio. Use o arquivo correto que está no botão abaixo.")
+        st.error("O CSV está vazio.")
         st.stop()
-
-except pd.errors.EmptyDataError:
-    st.error("Arquivo vazio ou corrompido. Baixe o CSV correto novamente.")
-    st.stop()
 except Exception as e:
     st.error(f"Erro ao ler: {e}")
     st.stop()
@@ -75,40 +72,38 @@ fig = px.pie(df, names='sentimento', hole=0.5, color='sentimento',
 fig.update_traces(
     textinfo='percent',
     textfont=dict(color='white', size=15, family='Arial Black'),
-    textposition='inside',
-    insidetextorientation='horizontal'
+    textposition='inside'
 )
-
 fig.update_layout(
     showlegend=True,
     height=350,
     margin=dict(t=0,b=0),
     paper_bgcolor='rgba(0,0,0,0)',
     plot_bgcolor='rgba(0,0,0,0)',
-    font=dict(color='white'), # legenda branca
+    font=dict(color='white'),
     legend=dict(font=dict(color='white', size=14))
 )
-
 st.plotly_chart(fig, use_container_width=True)
 
 st.subheader("🤖 Resumo da IA")
-
 with st.spinner("Gerando..."):
     resumo = gerar_insights_ia(df)
 st.info(resumo)
 
 with st.expander("Ver tabela completa"):
-    def color_sentimento(val):
+    try:
+        def color_sentimento(val):
+            if val == 'Positivo':
+                return 'background-color: #00CC96; color: white; font-weight: bold'
+            elif val == 'Negativo':
+                return 'background-color: #EF553B; color: white; font-weight: bold'
+            else:
+                return 'background-color: #636EFA; color: white; font-weight: bold'
+            
+        styled_df = df.style.map(color_sentimento, subset=['sentimento'])
+        st.dataframe(styled_df, use_container_width=True)
 
-        if val == 'Positivo':
-            return 'background-color: #00CC96; color: white; font-weight: bold'
+    except Exception:
+        st.dataframe(df, use_container_width=True)
 
-        elif val == 'Negativo':
-            return 'background-color: #EF553B; color: white; font-weight: bold'
-
-        else:
-            return 'background-color: #636EFA; color: white; font-weight: bold'
-
-    styled_df = df.style.applymap(color_sentimento, subset=['sentimento'])
-    st.dataframe(styled_df, use_container_width=True)
 st.caption("Feito por Jairo Andrade")
